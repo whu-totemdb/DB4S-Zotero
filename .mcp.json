@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "author": {
+      "url": "${MCP_AUTHOR_URL:-http://localhost:8100/sse}",
+      "description": "Author service"
+    },
+    "helmdb": {
+      "url": "${MCP_HELMDB_URL:-http://localhost:9003/sse}",
+      "description": "Helm database service"
+    },
+    "sciscinet": {
+      "url": "${MCP_SCISCINET_URL:-http://localhost:8090/sse}",
+      "description": "SciSciNet service"
+    },
+    "图教据库": {
+      "url": "${MCP_TUJIAOJUKU_URL:-http://localhost:9898/sse}",
+      "description": "图教据库 service"
+    },
+    "scp": {
+      "url": "${MCP_SCP_URL:-http://localhost:9191/sse}",
+      "description": "SCP service"
+    }
+  }
+}

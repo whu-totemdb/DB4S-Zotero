@@ -1,0 +1,416 @@
+<linkset>
+  <html:link rel="localization" href="__addonRef__-preferences.ftl" />
+</linkset>
+<groupbox onload="Zotero.__addonInstance__.hooks.onPrefsEvent('load', { window });"
+  style="padding: 0; margin: 0; background-color: transparent; border: none;">
+  <html:style>
+    .pref-container {
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    }
+
+    /* Section Headers */
+    .section-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 6px;
+    }
+
+    .main-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    }
+
+    /* Form Elements */
+    .setting-group {
+    background-color: #f9f9fb;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+    }
+
+    .setting-row {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    }
+
+    .setting-row:last-child {
+    margin-bottom: 0;
+    }
+
+    .setting-label {
+    width: 140px;
+    font-size: 13px;
+    color: #4a4a4a;
+    }
+
+    .setting-input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+    font-size: 13px;
+    background: #fff;
+    transition: border-color 0.2s;
+    }
+
+    .setting-input:focus {
+    border-color: #0366d6;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(3, 102, 214, 0.2);
+    }
+
+    /* MCP Tools */
+    .mcp-container {
+    display: flex;
+    gap: 12px;
+    }
+
+    .mcp-list {
+    flex: 1;
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+    min-height: 140px;
+    padding: 4px;
+    background: #fff;
+    }
+
+    .mcp-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 100px;
+    }
+
+    /* Buttons */
+    button {
+    padding: 6px 12px;
+    cursor: pointer;
+    }
+
+    .primary-btn {
+    background-color: #0060df;
+    color: white;
+    border: 1px solid #0060df;
+    border-radius: 4px;
+    }
+
+    .primary-btn:hover {
+    background-color: #003eaa;
+    border-color: #003eaa;
+    }
+
+    .dialog-box {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #d1d5da;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-top: 16px;
+    }
+
+    .dialog-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 16px;
+    display: block;
+    }
+    .dialog-btn {
+    min-width: 80px;
+    text-align: center;
+    }
+
+    /* Alert/Notification Box */
+    #ai-alert-box {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    margin-top: -80px !important;
+    margin-left: -200px !important;
+    width: 400px !important;
+    z-index: 2147483647 !important;
+    background: #fff !important;
+    border: 1px solid #0066cc !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    padding: 0 !important;
+    display: none !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    #ai-alert-box.show {
+    display: block !important;
+    visibility: visible !important;
+    }
+
+    #ai-alert-box.success {
+    border-color: #0066cc !important;
+    }
+
+    #ai-alert-box.error {
+    border-color: #0066cc !important;
+    }
+
+    #ai-alert-box.info {
+    border-color: #0066cc !important;
+    }
+
+    #ai-alert-content {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    color: #333 !important;
+    padding: 16px 28px 16px 16px !important;
+    margin: 0 !important;
+    }
+
+    #ai-alert-close {
+    position: absolute !important;
+    top: 2px !important;
+    right: 2px !important;
+    background: transparent !important;
+    border: none !important;
+    font-size: 18px !important;
+    font-weight: normal !important;
+    cursor: pointer !important;
+    color: #999 !important;
+    padding: 2px 4px !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    min-width: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+    text-align: center !important;
+    }
+
+    #ai-alert-close:hover {
+    color: #333 !important;
+    background: #f5f5f5 !important;
+    border-radius: 3px !important;
+    }
+  </html:style>
+
+  <vbox class="pref-container">
+    <hbox align="center" style="margin-bottom: 20px;">
+      <html:h2 data-l10n-id="pref-title" class="main-title" style="flex: 1; margin: 0;"></html:h2>
+      <checkbox id="zotero-prefpane-__addonRef__-enable" preference="enable" data-l10n-id="pref-enable" />
+    </hbox>
+
+    <label class="section-header">Basic Configuration</label>
+    <vbox class="setting-group">
+      <hbox align="center" class="setting-row">
+        <label value="LLM Provider:" class="setting-label" />
+        <menulist preference="provider" id="zotero-prefpane-__addonRef__-provider" style="min-width: 200px;">
+          <menupopup>
+            <menuitem label="OpenAI" value="OpenAI" />
+            <menuitem label="DeepSeek" value="DeepSeek" />
+            <menuitem label="Gemini" value="Gemini" />
+            <menuitem label="Claude" value="Claude" />
+            <menuitem label="Custom" value="Custom" />
+          </menupopup>
+        </menulist>
+      </hbox>
+    </vbox>
+
+    <label class="section-header">Provider Settings</label>
+
+    <!-- OpenAI -->
+    <vbox id="group-OpenAI" class="setting-group">
+      <hbox align="center" class="setting-row">
+        <label value="API Key:" class="setting-label" />
+        <html:input type="password" id="pref-openaiApiKey" preference="openaiApiKey" class="setting-input"
+          placeholder="sk-..." />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Model:" class="setting-label" />
+        <html:input type="text" id="pref-openaiModel" preference="openaiModel" class="setting-input"
+          placeholder="gpt-4o" />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Base URL:" class="setting-label" />
+        <html:input type="text" id="pref-openaiBaseUrl" preference="openaiBaseUrl" class="setting-input"
+          placeholder="https://api.openai.com/v1" />
+      </hbox>
+    </vbox>
+
+    <!-- DeepSeek -->
+    <vbox id="group-DeepSeek" class="setting-group">
+      <hbox align="center" class="setting-row">
+        <label value="API Key:" class="setting-label" />
+        <html:input type="password" id="pref-deepseekApiKey" preference="deepseekApiKey" class="setting-input" />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Model:" class="setting-label" />
+        <html:input type="text" id="pref-deepseekModel" preference="deepseekModel" class="setting-input"
+          placeholder="deepseek-chat" />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Base URL:" class="setting-label" />
+        <html:input type="text" id="pref-deepseekBaseUrl" preference="deepseekBaseUrl" class="setting-input"
+          placeholder="https://api.deepseek.com" />
+      </hbox>
+    </vbox>
+
+    <!-- Gemini -->
+    <vbox id="group-Gemini" class="setting-group">
+      <hbox align="center" class="setting-row">
+        <label value="API Key:" class="setting-label" />
+        <html:input type="password" id="pref-geminiApiKey" preference="geminiApiKey" class="setting-input" />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Model:" class="setting-label" />
+        <html:input type="text" id="pref-geminiModel" preference="geminiModel" class="setting-input"
+          placeholder="gemini-1.5-flash" />
+      </hbox>
+    </vbox>
+
+    <!-- Claude -->
+    <vbox id="group-Claude" class="setting-group">
+      <hbox align="center" class="setting-row">
+        <label value="API Key:" class="setting-label" />
+        <html:input type="password" id="pref-claudeApiKey" preference="claudeApiKey" class="setting-input"
+          placeholder="sk-ant-..." />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Model:" class="setting-label" />
+        <html:input type="text" id="pref-claudeModel" preference="claudeModel" class="setting-input"
+          placeholder="claude-3-5-sonnet-20241022" />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Base URL:" class="setting-label" />
+        <html:input type="text" id="pref-claudeBaseUrl" preference="claudeBaseUrl" class="setting-input"
+          placeholder="https://api.anthropic.com/v1" />
+      </hbox>
+    </vbox>
+
+    <!-- Custom -->
+    <vbox id="group-Custom" class="setting-group">
+      <hbox align="center" class="setting-row">
+        <label value="API Key:" class="setting-label" />
+        <html:input type="password" id="pref-customApiKey" preference="customApiKey" class="setting-input" />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Model:" class="setting-label" />
+        <html:input type="text" id="pref-customModel" preference="customModel" class="setting-input" />
+      </hbox>
+      <hbox align="center" class="setting-row">
+        <label value="Base URL:" class="setting-label" />
+        <html:input type="text" id="pref-customBaseUrl" preference="customBaseUrl" class="setting-input" />
+      </hbox>
+    </vbox>
+
+    <hbox pack="end" style="gap: 10px; margin-top: 5px; margin-bottom: 20px;">
+      <button id="zotero-prefpane-__addonRef__-test-connection">Test Connection</button>
+      <button id="zotero-prefpane-__addonRef__-save-connection">Save Configuration</button>
+    </hbox>
+
+    <label class="section-header">Embedding Configuration (RAG)</label>
+    <vbox class="setting-group">
+      <hbox align="center" class="setting-row">
+        <label value="Provider:" class="setting-label" />
+        <menulist preference="embeddingProvider" id="zotero-prefpane-__addonRef__-embeddingProvider"
+          style="min-width: 200px;">
+          <menupopup>
+            <menuitem label="Local (TF-IDF)" value="Local" />
+            <menuitem label="OpenAI" value="OpenAI" />
+            <menuitem label="Gemini" value="Gemini" />
+            <menuitem label="Custom (OpenAI Compatible)" value="Custom" />
+          </menupopup>
+        </menulist>
+      </hbox>
+
+      <vbox id="group-Embedding-Local" hidden="true">
+        <label style="font-size: 11px; color: #666; margin-top: 4px;">
+          内置、免费，无需配置
+        </label>
+      </vbox>
+      <vbox id="group-Embedding-Custom" hidden="true">
+        <hbox align="center" class="setting-row">
+          <label value="Base URL:" class="setting-label" />
+          <html:input type="text" id="pref-embeddingBaseUrl" preference="embeddingBaseUrl" class="setting-input"
+            placeholder="e.g. https://dashscope.aliyuncs.com/compatible-mode/v1" />
+        </hbox>
+        <hbox align="center" class="setting-row">
+          <label value="API Key:" class="setting-label" />
+          <html:input type="password" id="pref-embeddingApiKey" preference="embeddingApiKey" class="setting-input"
+            placeholder="Optional if same as LLM" />
+        </hbox>
+        <hbox align="center" class="setting-row">
+          <label value="Model:" class="setting-label" />
+          <html:input type="text" id="pref-embeddingModel" preference="embeddingModel" class="setting-input"
+            placeholder="e.g. text-embedding-v1" />
+        </hbox>
+      </vbox>
+      <label style="font-size: 11px; color: #666; margin-top: 4px;">
+        For long papers, the content will be automatically embedded and processed using RAG for better context
+        retrieval.
+      </label>
+
+      <hbox pack="end" style="gap: 10px; margin-top: 15px;">
+        <button id="zotero-prefpane-__addonRef__-test-embedding">Test Embedding</button>
+        <button id="zotero-prefpane-__addonRef__-save-embedding">Save Configuration</button>
+      </hbox>
+    </vbox>
+
+    <hbox align="center"
+      style="margin-top: 24px; margin-bottom: 12px; border-bottom: 2px solid #eee; padding-bottom: 6px;">
+      <label class="section-header" style="margin: 0; border: none; padding: 0; flex: 1;">MCP Tools Integration</label>
+      <checkbox id="pref-mcpEnabled" preference="mcpEnabled" label="Enable" style="margin-right: 0;" />
+    </hbox>
+
+    <vbox id="group-MCP" class="setting-group">
+      <hbox class="mcp-container">
+        <vbox flex="1">
+          <html:select id="mcp-server-list" size="5" class="mcp-list"></html:select>
+        </vbox>
+        <vbox class="mcp-actions">
+          <button id="mcp-add-btn">Add Server</button>
+          <button id="mcp-remove-btn">Remove</button>
+          <button id="mcp-check-btn">Check Status</button>
+        </vbox>
+      </hbox>
+
+      <!-- Inline Dialog -->
+      <vbox id="mcp-add-dialog" hidden="true" class="dialog-box">
+        <label value="Add New MCP Server" class="dialog-title" />
+        <hbox align="center" class="setting-row">
+          <label value="Name:" class="setting-label" style="width: 80px;" />
+          <html:input id="mcp-new-name" type="text" class="setting-input" placeholder="e.g. Filesystem Tools" />
+        </hbox>
+        <hbox align="center" class="setting-row">
+          <label value="SSE URL:" class="setting-label" style="width: 80px;" />
+          <html:input id="mcp-new-url" type="text" class="setting-input" placeholder="http://localhost:8000/sse" />
+        </hbox>
+        <hbox align="center" class="setting-row">
+          <label value="API Key:" class="setting-label" style="width: 80px;" />
+          <html:input id="mcp-new-key" type="password" class="setting-input" placeholder="Optional" />
+        </hbox>
+        <hbox pack="end" style="margin-top: 20px; gap: 10px;">
+          <button id="mcp-dialog-cancel" class="dialog-btn">Cancel</button>
+          <button id="mcp-dialog-confirm" class="dialog-btn">Save Server</button>
+        </hbox>
+      </vbox>
+    </vbox>
+
+  </vbox>
+
+  <!-- Alert/Notification Box - placed at groupbox level for proper z-index -->
+  <vbox id="ai-alert-box" hidden="true" style="position: relative;">
+    <html:div id="ai-alert-content"></html:div>
+    <button id="ai-alert-close" style="position: absolute; top: 4px; right: 4px;">×</button>
+  </vbox>
+</groupbox>

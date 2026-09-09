@@ -1,0 +1,1 @@
+try { const pdfjs = await import('./pdf.mjs'); window.pdfjsLib = pdfjs; window.dispatchEvent(new CustomEvent('pdfjs-loaded-ai-for-science')); } catch (e) { console.error('PDF Loader Failed', e); window.dispatchEvent(new CustomEvent('pdfjs-error-ai-for-science', { detail: e.toString() })); }

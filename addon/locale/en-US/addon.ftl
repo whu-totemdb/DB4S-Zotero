@@ -1,0 +1,13 @@
+startup-begin = Addon is loading
+startup-finish = Addon is ready
+menuitem-label = AI Assistant: Helper Examples
+menupopup-label = AI Assistant: Menupopup
+menuitem-submenulabel = AI Assistant
+menuitem-filemenulabel = AI Assistant: File Menuitem
+prefs-title = AI for science
+prefs-table-title = Title
+prefs-table-detail = Detail
+tabpanel-lib-tab-label = Lib Tab
+tabpanel-reader-tab-label = Reader Tab
+ai-chat-section-header = AI Chat
+ai-chat-section-sidenav = AI Chat
