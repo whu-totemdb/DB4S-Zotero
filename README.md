@@ -1,412 +1,346 @@
-# Zotero Plugin Template
+# AI for Science - Zotero 插件
 
-[![zotero target version](https://img.shields.io/badge/Zotero-7-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
-[![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
+一个功能强大的 Zotero 插件，集成了 AI 聊天、MCP（Model Context Protocol）支持、RAG（检索增强生成）和学术研究辅助功能。
 
-This is a plugin template for [Zotero](https://www.zotero.org/).
+## 🔥 核心底座：多模数据库 (MMDB) 原生支撑
 
-[English](README.md) | [简体中文](doc/README-zhCN.md) | [Français](doc/README-frFR.md)
+本项目不仅是一个前端交互插件，其底层深度依托于 **“MMDB + LLM” 双引擎架构**，跨越传统文献检索的语义鸿沟：
 
-- Documentation for plugins development
-  - [📖 Plugin Development Documentation](https://zotero-chinese.com/plugin-dev-guide/) (Chinese, not yet complete)
-  - [📖 Plugin Development Documentation for Zotero 7](https://www.zotero.org/support/dev/zotero_7_for_developers)
-- Tools for plugins development
-  - [🛠️ Zotero Plugin Toolkit](https://github.com/windingwind/zotero-plugin-toolkit) | [API Documentation](https://github.com/windingwind/zotero-plugin-toolkit/blob/master/docs/zotero-plugin-toolkit.md)
-  - [🛠️ Zotero Plugin Scaffold](https://github.com/northword/zotero-plugin-scaffold)
-  - [ℹ️ Zotero Type Definitions](https://github.com/windingwind/zotero-types)
-  - [📜 Zotero Source Code](https://github.com/zotero/zotero)
-  - [📌 Zotero Plugin Template](https://github.com/windingwind/zotero-plugin-template) (This repo)
+- **四模原生统一存储**：底层原生支持关系 (Table)、图 (Edge)、向量 (Vector)、文档 (Document) 四种科研数据模型，彻底打破数据孤岛。
+- **跨模态高级推理**：支持融合图遍历与向量检索的复杂图思维链 (Graph-CoT) 推理，例如毫秒级溯源“某高引论文背后的支撑数据集”。
+- **高保真知识引擎 (RAG+)**：利用原生科研图谱增强语义理解，为大模型提供高可靠的外部专业事实，从根本上抑制模型“幻觉”。
+- **云端双向协同**：Zotero 作为天然入口捕获阅读上下文，通过 MCP 协议与后端 MMDB 毫秒级通信，实现科研情报的“随读随采”与动态图谱化。
+- 
 
-> [!tip]
-> 👁 Watch this repo so that you can be notified whenever there are fixes & updates.
+## ✨ 功能特性
 
-## Plugins built with this template
+### 🤖 AI 聊天功能
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/windingwind/zotero-better-notes?label=zotero-better-notes&style=flat-square)](https://github.com/windingwind/zotero-better-notes)
-[![GitHub Repo stars](https://img.shields.io/github/stars/windingwind/zotero-pdf-preview?label=zotero-pdf-preview&style=flat-square)](https://github.com/windingwind/zotero-pdf-preview)
-[![GitHub Repo stars](https://img.shields.io/github/stars/windingwind/zotero-pdf-translate?label=zotero-pdf-translate&style=flat-square)](https://github.com/windingwind/zotero-pdf-translate)
-[![GitHub Repo stars](https://img.shields.io/github/stars/windingwind/zotero-tag?label=zotero-tag&style=flat-square)](https://github.com/windingwind/zotero-tag)
-[![GitHub Repo stars](https://img.shields.io/github/stars/iShareStuff/ZoteroTheme?label=zotero-theme&style=flat-square)](https://github.com/iShareStuff/ZoteroTheme)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/zotero-reference?label=zotero-reference&style=flat-square)](https://github.com/MuiseDestiny/zotero-reference)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/zotero-citation?label=zotero-citation&style=flat-square)](https://github.com/MuiseDestiny/zotero-citation)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/ZoteroStyle?label=zotero-style&style=flat-square)](https://github.com/MuiseDestiny/ZoteroStyle)
-[![GitHub Repo stars](https://img.shields.io/github/stars/volatile-static/Chartero?label=Chartero&style=flat-square)](https://github.com/volatile-static/Chartero)
-[![GitHub Repo stars](https://img.shields.io/github/stars/l0o0/tara?label=tara&style=flat-square)](https://github.com/l0o0/tara)
-[![GitHub Repo stars](https://img.shields.io/github/stars/redleafnew/delitemwithatt?label=delitemwithatt&style=flat-square)](https://github.com/redleafnew/delitemwithatt)
-[![GitHub Repo stars](https://img.shields.io/github/stars/redleafnew/zotero-updateifsE?label=zotero-updateifsE&style=flat-square)](https://github.com/redleafnew/zotero-updateifsE)
-[![GitHub Repo stars](https://img.shields.io/github/stars/northword/zotero-format-metadata?label=zotero-format-metadata&style=flat-square)](https://github.com/northword/zotero-format-metadata)
-[![GitHub Repo stars](https://img.shields.io/github/stars/inciteful-xyz/inciteful-zotero-plugin?label=inciteful-zotero-plugin&style=flat-square)](https://github.com/inciteful-xyz/inciteful-zotero-plugin)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/zotero-gpt?label=zotero-gpt&style=flat-square)](https://github.com/MuiseDestiny/zotero-gpt)
-[![GitHub Repo stars](https://img.shields.io/github/stars/zoushucai/zotero-journalabbr?label=zotero-journalabbr&style=flat-square)](https://github.com/zoushucai/zotero-journalabbr)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/zotero-figure?label=zotero-figure&style=flat-square)](https://github.com/MuiseDestiny/zotero-figure)
-[![GitHub Repo stars](https://img.shields.io/github/stars/l0o0/jasminum?label=jasminum&style=flat-square)](https://github.com/l0o0/jasminum)
-[![GitHub Repo stars](https://img.shields.io/github/stars/lifan0127/ai-research-assistant?label=ai-research-assistant&style=flat-square)](https://github.com/lifan0127/ai-research-assistant)
-[![GitHub Repo stars](https://img.shields.io/github/stars/daeh/zotero-markdb-connect?label=zotero-markdb-connect&style=flat-square)](https://github.com/daeh/zotero-markdb-connect)
-[![GitHub Repo stars](https://img.shields.io/github/stars/daeh/zotero-citation-tally?label=citation-tally&style=flat-square)](https://github.com/daeh/zotero-citation-tally)
+- **多 LLM 提供商支持**
+  - OpenAI (GPT-3.5, GPT-4 等)
+  - DeepSeek (包括 DeepSeek-R1 推理模型)
+  - Google Gemini
+  - Anthropic Claude
+  - 自定义 OpenAI 兼容 API
 
-If you are using this repo, I recommended that you put the following badge on your README:
+- **智能对话模式**
+  - **Ask 模式**：快速问答，适合简单问题
+  - **Agent 模式**：支持工具调用，可执行复杂任务和多轮对话
 
-[![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
+- **流式响应**：实时显示 AI 回复，提升用户体验
 
-```md
-[![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
-```
+### 📄 PDF 处理
 
-## Features
+- 自动提取 PDF 文本内容
+- 支持选中文本的上下文解释
+- 智能识别论文标题和摘要
+- PDF 文本缓存机制，提升性能
 
-- Event-driven, functional programming, under extensive skeleton;
-- Simple and user-friendly, works out-of-the-box.
-- Abundant examples in `src/modules/examples.ts`, covering most of the commonly used APIs in plugins (using [zotero-plugin-toolkit](https://github.com/windingwind/zotero-plugin-toolkit));
-- TypeScript support:
-  - Full type definition support for the whole Zotero project, which is written in JavaScript (using [zotero-types](https://github.com/windingwind/zotero-types));
-  - Global variables and environment setup;
-- Plugin develop/build/release workflow:
-  - ⭐ [New!] Auto hot reload! Whenever the source code is modified, automatically compile and reload. [See here→](#auto-hot-reload)
-  - Automatically generate/update plugin id/version, update configrations, and set environment variables (`development` / `production`);
-  - Automatically release to GitHub;
-- Prettier and ES Lint integration.
+### 🔍 RAG (检索增强生成)
 
-## Examples
+- **多种嵌入模型支持**
+  - OpenAI Embeddings
+  - Google Gemini Embeddings
+  - 本地 TF-IDF 嵌入（无需 API，离线可用）
+  - 自定义嵌入服务
 
-This repo provides examples for [zotero-plugin-toolkit](https://github.com/windingwind/zotero-plugin-toolkit) APIs.
+- **智能文档分块**
+  - 自动将长文档分割为语义块
+  - 基于相似度的上下文检索
+  - 支持大文档的高效处理
 
-Search `@example` in `src/examples.ts`. The examples are called in `src/hooks.ts`.
+### 🔌 MCP (Model Context Protocol) 支持
 
-### Basic Examples
+- 连接 MCP 服务器
+- 动态工具发现和调用
+- 支持多个 MCP 服务器同时连接
+- 工具选择和管理界面
 
-- registerNotifier
-- registerPrefs, unregisterPrefs
+### 📚 学术研究辅助
 
-### Shortcut Keys Examples
+- **DBLP 集成**
+  - 作者信息查询
+  - 论文搜索和导入
+  - 作者 ORCID 查询
+  - 论文集合管理
 
-- registerShortcuts
-- exampleShortcutLargerCallback
-- exampleShortcutSmallerCallback
-- exampleShortcutConflictionCallback
+- **学术简历生成**
+  - 基于论文和数据集自动生成作者简介
+  - 支持多语言输出
 
-### UI Examples
+- **论文组对话**
+  - 支持多篇论文的联合分析
+  - 跨文档信息检索
 
-![image](https://user-images.githubusercontent.com/33902321/211739774-cc5c2df8-5fd9-42f0-9cdf-0f2e5946d427.png)
+### 🎨 用户界面
 
-- registerStyleSheet(the official make-it-red example)
-- registerRightClickMenuItem
-- registerRightClickMenuPopup
-- registerWindowMenuWithSeprator
-- registerExtraColumn
-- registerExtraColumnWithCustomCell
-- registerCustomItemBoxRow
-- registerLibraryTabPanel
-- registerReaderTabPanel
+- 现代化的聊天界面
+- 支持 Markdown 格式渲染
+- 响应式设计，适配不同屏幕
+- 中英文双语支持
 
-### Preference Pane Examples
+## 🚀 安装方法
 
-![image](https://user-images.githubusercontent.com/33902321/211737987-cd7c5c87-9177-4159-b975-dc67690d0490.png)
+### 方法一：从源码构建（推荐）
 
-- Preferences bindings
-- UI Events
-- Table
-- Locale
-
-See [`src/modules/preferenceScript.ts`](./src/modules/preferenceScript.ts)
-
-### HelperExamples
-
-![image](https://user-images.githubusercontent.com/33902321/215119473-e7d0d0ef-6d96-437e-b989-4805ffcde6cf.png)
-
-- dialogExample
-- clipboardExample
-- filePickerExample
-- progressWindowExample
-- vtableExample(See Preference Pane Examples)
-
-### PromptExamples
-
-An Obsidian-style prompt(popup command input) module. It accepts text command to run callback, with optional display in the popup.
-
-Activate with `Shift+P`.
-
-![image](https://user-images.githubusercontent.com/33902321/215120009-e7c7ed27-33a0-44fe-b021-06c272481a92.png)
-
-- registerAlertPromptExample
-
-## Quick Start Guide
-
-### 0 Requirement
-
-1. Install a beta version of Zotero: <https://www.zotero.org/support/beta_builds>
-2. Install [Node.js latest LTS version](https://nodejs.org/en/) and [Git](https://git-scm.com/)
-
-> [!note]
-> This guide assumes that you have an initial understanding of the basic structure and workings of the Zotero plugin. If you don't, please refer to the [documentation](https://www.zotero.org/support/dev/zotero_7_for_developers) and official plugin examples [Make It Red](https://github.com/zotero/make-it-red) first.
-
-### 1 Creat Your Repo
-
-1. Click `Use this template`
-2. Git clone your new repo
-   <details >
-   <summary>💡 Start with GitHub Codespace</summary>
-
-   _GitHub CodeSpace_ enables you getting started without the need to download code/IDE/dependencies locally.
-
-   Replace the steps above and build you first plugin in 30 seconds!
-   - Goto top of the [homepage](https://github.com/windingwind/zotero-plugin-template), click the green button `Use this template`, click `Open in codespace`. You may need to login to your GitHub account.
-   - Wait for codespace to load.
-
-   </details>
-
-3. Enter the repo folder
-
-### 2 Config Template Settings and Environment
-
-1. Modify the settings in `./package.json`, including:
-
-   ```jsonc
-   {
-     "version": "0.0.0",
-     "description": "",
-     "config": {
-       "addonName": "", // name to be displayed in the plugin manager
-       "addonID": "", // ID to avoid conflict. IMPORTANT!
-       "addonRef": "", // e.g. Element ID prefix
-       "addonInstance": "", // the plugin's root instance: Zotero.${addonInstance}
-       "prefsPrefix": "extensions.zotero.${addonRef}", // the prefix of prefs
-     },
-     "repository": {
-       "type": "git",
-       "url": "git+https://github.com/your-github-name/repo-name.git",
-     },
-     "author": "Your Name",
-     "bugs": {
-       "url": "https://github.com/your-github-name/repo-name/issues",
-     },
-     "homepage": "https://github.com/your-github-name/repo-name#readme",
-   }
+1. **克隆仓库**
+   ```bash
+   git clone https://github.com/your-username/ai-for-science-zotero.git
+   cd ai-for-science-zotero
    ```
 
-   > [!warning]
-   > Be careful to set the addonID and addonRef to avoid conflict.
-
-   If you need to host your XPI packages outside of GitHub, modify `updateURL` and add `xpiDownloadLink` in `zotero-plugin.config.ts`.
-
-2. Copy the environment variable file. Modify the commands that starts your installation of the beta Zotero.
-
-   > Create a development profile (Optional)  
-   > Start the beta Zotero with `/path/to/zotero -p`. Create a new profile and use it as your development profile. Do this only once
-
-   ```sh
-   cp .env.example .env
-   vim .env
+2. **安装依赖**
+   ```bash
+   npm install
    ```
 
-   If you are developing more than one plugin, you can store the bin path and profile path in the system environment variables, which can be omitted here.
+3. **构建插件**
+   ```bash
+   npm run build
+   ```
 
-3. Install dependencies with `npm install`
+4. **安装到 Zotero**
+   - 打开 Zotero
+   - 进入 `工具` → `插件` → `从文件安装...`
+   - 选择 `.scaffold/build/ai_mcp.xpi` 文件
 
-   > If you are using `pnpm` as the package manager for your project, you need to add `public-hoist-pattern[]=*@types/bluebird*` to `.npmrc`, see <https://github.com/windingwind/zotero-types?tab=readme-ov-file#usage>.
+### 方法二：从 Release 下载
 
-   If you get `npm ERR! ERESOLVE unable to resolve dependency tree` with `npm install`, which is an upstream dependency bug of typescript-eslint, use the `npm i -f` command to install it.
+1. 访问 [Releases 页面](https://github.com/whu-totemdb/DB4S)
+2. 下载最新版本的 `.xpi` 文件
+3. 在 Zotero 中通过 `工具` → `插件` → `从文件安装...` 安装
 
-### 3 Coding
+### 系统要求
 
-Start development server with `npm start`, it will:
+- Zotero 7.0 或更高版本
 
-- Prebuild the plugin in development mode
-- Start Zotero with plugin loaded from `build/`
-- Watch `src/**` and `addon/**`, rebuild and reload plugin in Zotero when source code changed.
+## ⚡ 快速开始
 
-#### Auto Hot Reload
+### 1. 配置 AI 提供商
 
-Tired of endless restarting? Forget about it!
+安装插件后，首次使用需要配置 AI 提供商：
 
-1. Run `npm start`.
-2. Coding. (Yes, that's all)
+1. 打开 Zotero 设置（`编辑` → `首选项`）
+2. 找到 `AI for Science` 标签页
+3. 选择 AI 提供商（如 OpenAI、DeepSeek 等）
+4. 输入 API Key 和 Base URL（如需要）
+5. 选择模型（如 `gpt-4`、`deepseek-chat` 等）
 
-When file changes are detected in `src` or `addon`, the plugin will be automatically compiled and reloaded.
+### 2. 开始对话
 
-<details style="text-indent: 2em">
-<summary>💡 Steps to add this feature to an existing plugin</summary>
+1. 在 Zotero 中选中一篇论文
+2. 点击论文，选择 `AI Assistant` → `Chat with Paper`
+3. 在弹出的聊天窗口中输入问题
+4. 选择对话模式：
+   - **Ask 模式**：快速问答
+   - **Agent 模式**：支持工具调用
 
-Please see [zotero-plugin-scaffold](https://github.com/northword/zotero-plugin-scaffold).
+### 3. 使用选中文本
 
-</details>
+1. 在 PDF 阅读器中选中一段文本
+2. 选择 `AI Assistant` → `Explain Selected Text`
+3. AI 将基于上下文解释选中的内容
 
-#### Debug in Zotero
+## ⚙️ 配置说明
 
-You can also:
+### AI 提供商配置
 
-- Test code snippets in Tools -> Developer -> Run Javascript;
-- Debug output with `Zotero.debug()`. Find the outputs in Help->Debug Output Logging->View Output;
-- Debug UI. Zotero is built on the Firefox XUL framework. Debug XUL UI with software like [XUL Explorer](https://udn.realityripple.com/docs/Archive/Mozilla/XUL_Explorer).
-  > XUL Documentation: <http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/XUL.html>
+#### OpenAI
 
-### 4 Build
-
-Run `npm run build` to build the plugin in production mode. The build output will be located in the `.scaffold/build/` directory.
-
-For detailed build steps, refer to the [zotero-plugin-scaffold documentation](https://northword.github.io/zotero-plugin-scaffold/build.html). In short, the process can be divided into the following steps:
-
-- Create or clear the `build/` directory
-- Copy `addon/**` to `.scaffold/build/addon/**`
-- Replace placeholders: substitute keywords and configurations defined in `package.json`
-- Prepare localization files to avoid conflicts (see the [zotero_7_for_developers](https://www.zotero.org/support/dev/zotero_7_for_developers#avoiding_localization_conflicts) for more information):
-  - Rename `**/*.flt` to `**/${addonRef}-*.flt`
-  - Prefix each message with `addonRef-`
-  - Generate type declaration files for FTL messages
-- Prepare preferences files: prefix preference keys with `package.json#prefsPrefix` and generate type declaration files for preferences
-- Use ESBuild to compile `.ts` source code to `.js`, building from `src/index.ts` to `.scaffold/build/addon/content/scripts`
-- _(Production mode only)_ Compress the `.scaffold/build/addon` directory into `.scaffold/build/*.xpi`
-- _(Production mode only)_ Prepare `update.json` or `update-beta.json`
-
-> [!note]
->
-> **What's the difference between dev & prod?**
->
-> - This environment variable is stored in `Zotero.${addonInstance}.data.env`. The outputs to console is disabled in prod mode.
-> - You can decide what users cannot see/use based on this variable.
-> - In production mode, the build script will pack the plugin and update the `update.json`.
-
-### 5 Release
-
-To build and release, use
-
-```shell
-# version increase, git add, commit and push
-# then on ci, npm run build, and release to GitHub
-npm run release
+```
+Provider: OpenAI
+Base URL: https://api.openai.com/v1 (默认)
+API Key: sk-...
+Model: gpt-4, gpt-3.5-turbo 等
 ```
 
-> [!note]
-> This will use [Bumpp](https://github.com/antfu-collective/bumpp) to prompt for the new version number, locally bump the version, run any (pre/post)version scripts defined in `package.json`, commit, build (optional), tag the commit with the version number and push commits and git tags. Bumpp can be configured in `zotero-plugin-config.ts`; for example, add `release: { bumpp: { execute: "npm run build" } }` to also build before committing.
->
-> Subsequently GitHub Action will rebuild the plugin and use `zotero-plugin-scaffold`'s `release` script to publish the XPI to GitHub Release. In addition, a separate release (tag: `release`) will be created or updated that includes update manifests `update.json` and `update-beta.json` as assets. These will be available at `https://github.com/{{owner}}/{{repo}}/releases/download/release/update*.json`.
+#### DeepSeek
 
-#### About Prerelease
-
-The template defines `prerelease` as the beta version of the plugin, when you select a `prerelease` version in Bumpp (with `-` in the version number). The build script will create a new `update-beta.json` for prerelease use, which ensures that users of the regular version won't be able to update to the beta. Only users who have manually downloaded and installed the beta will be able to update to the next beta automatically.
-
-When the next regular release is updated, both `update.json` and `update-beta.json` will be updated (on the special `release` release, see above) so that both regular and beta users can update to the new regular release.
-
-> [!warning]
-> Strictly, distinguishing between Zotero 6 and Zotero 7 compatible plugin versions should be done by configuring `applications.zotero.strict_min_version` in `addons.__addonID__.updates[]` of `update.json` respectively, so that Zotero recognizes it properly, see <https://www.zotero.org/support/dev/zotero_7_for_developers#updaterdf_updatesjson>.
-
-## Details
-
-### About Hooks
-
-> See also [`src/hooks.ts`](https://github.com/windingwind/zotero-plugin-template/blob/main/src/hooks.ts)
-
-1. When install/enable/startup triggered from Zotero, `bootstrap.js` > `startup` is called
-   - Wait for Zotero ready
-   - Load `index.js` (the main entrance of plugin code, built from `index.ts`)
-   - Register resources if Zotero 7+
-2. In the main entrance `index.js`, the plugin object is injected under `Zotero` and `hooks.ts` > `onStartup` is called.
-   - Initialize anything you want, including notify listeners, preference panes, and UI elements.
-3. When uninstall/disabled triggered from Zotero, `bootstrap.js` > `shutdown` is called.
-   - `events.ts` > `onShutdown` is called. Remove UI elements, preference panes, or anything created by the plugin.
-   - Remove scripts and release resources.
-
-### About Global Variables
-
-> See also [`src/index.ts`](https://github.com/windingwind/zotero-plugin-template/blob/main/src/index.ts)
-
-The bootstrapped plugin runs in a sandbox, which does not have default global variables like `Zotero` or `window`, which we used to have in the overlay plugins' window environment.
-
-This template registers the following variables to the global scope:
-
-```plain
-Zotero, ZoteroPane, Zotero_Tabs, window, document, rootURI, ztoolkit, addon;
+```
+Provider: DeepSeek
+Base URL: https://api.deepseek.com/v1 (默认)
+API Key: sk-...
+Model: deepseek-chat, deepseek-reasoner 等
 ```
 
-### Create Elements API
+#### Google Gemini
 
-The plugin template provides new APIs for bootstrap plugins. We have two reasons to use these APIs, instead of the `createElement/createElementNS`:
-
-- In bootstrap mode, plugins have to clean up all UI elements on exit (disable or uninstall), which is very annoying. Using the `createElement`, the plugin template will maintain these elements. Just `unregisterAll` at the exit.
-- Zotero 7 requires createElement()/createElementNS() → createXULElement() for remaining XUL elements, while Zotero 6 doesn't support `createXULElement`. The React.createElement-like API `createElement` detects namespace(xul/html/svg) and creates elements automatically, with the return element in the corresponding TS element type.
-
-```ts
-createElement(document, "div"); // returns HTMLDivElement
-createElement(document, "hbox"); // returns XUL.Box
-createElement(document, "button", { namespace: "xul" }); // manually set namespace. returns XUL.Button
+```
+Provider: Gemini
+API Key: (从 Google AI Studio 获取)
+Model: gemini-pro, gemini-pro-vision 等
 ```
 
-### About Zotero API
+#### Anthropic Claude
 
-Zotero docs are outdated and incomplete. Clone <https://github.com/zotero/zotero> and search the keyword globally.
-
-> ⭐The [zotero-types](https://github.com/windingwind/zotero-types) provides most frequently used Zotero APIs. It's included in this template by default. Your IDE would provide hint for most of the APIs.
-
-A trick for finding the API you want:
-
-Search the UI label in `.xhtml`/`.flt` files, find the corresponding key in locale file. Then search this keys in `.js`/`.jsx` files.
-
-### Directory Structure
-
-This section shows the directory structure of a template.
-
-- All `.js/.ts` code files are in `./src`;
-- Addon config files: `./addon/manifest.json`;
-- UI files: `./addon/content/*.xhtml`.
-- Locale files: `./addon/locale/**/*.flt`;
-- Preferences file: `./addon/prefs.js`;
-
-```shell
-.
-|-- .github/                  # github conf
-|-- .vscode/                  # vscode conf
-|-- addon                     # static files
-|   |-- bootstrap.js
-|   |-- content
-|   |   |-- icons
-|   |   |   |-- favicon.png
-|   |   |   `-- favicon@0.5x.png
-|   |   |-- preferences.xhtml
-|   |   `-- zoteroPane.css
-|   |-- locale
-|   |   |-- en-US
-|   |   |   |-- addon.ftl
-|   |   |   |-- mainWindow.ftl
-|   |   |   `-- preferences.ftl
-|   |   `-- zh-CN
-|   |       |-- addon.ftl
-|   |       |-- mainWindow.ftl
-|   |       `-- preferences.ftl
-|   |-- manifest.json
-|   `-- prefs.js
-|-- build                         # build dir
-|-- node_modules
-|-- src                           # source code of scripts
-|   |-- addon.ts                  # base class
-|   |-- hooks.ts                  # lifecycle hooks
-|   |-- index.ts                  # main entry
-|   |-- modules                   # sub modules
-|   |   |-- examples.ts
-|   |   `-- preferenceScript.ts
-|   `-- utils                 # utilities
-|       |-- locale.ts
-|       |-- prefs.ts
-|       |-- wait.ts
-|       |-- window.ts
-|       `-- ztoolkit.ts
-|-- typings                   # ts typings
-|   `-- global.d.ts
-
-|-- .env                      # enviroment config (do not check into repo)
-|-- .env.example              # template of enviroment config, https://github.com/northword/zotero-plugin-scaffold
-|-- .gitignore                # git conf
-|-- .gitattributes            # git conf
-|-- .prettierrc               # prettier conf, https://prettier.io/
-|-- eslint.config.mjs         # eslint conf, https://eslint.org/
-|-- LICENSE
-|-- package-lock.json
-|-- package.json
-|-- tsconfig.json             # typescript conf, https://code.visualstudio.com/docs/languages/jsconfig
-|-- README.md
-`-- zotero-plugin.config.ts   # scaffold conf, https://github.com/northword/zotero-plugin-scaffold
+```
+Provider: Claude
+Base URL: https://api.anthropic.com/v1 (默认)
+API Key: sk-ant-...
+Model: claude-3-opus, claude-3-sonnet 等
 ```
 
-## Disclaimer
+#### 自定义提供商
 
-Use this code under AGPL. No warranties are provided. Keep the laws of your locality in mind!
+```
+Provider: Custom
+Base URL: (你的 API 端点)
+API Key: (你的 API Key)
+Model: (你的模型名称)
+```
 
-If you want to change the license, please contact me at <wyzlshx@foxmail.com>
+### RAG 配置
+
+#### 嵌入提供商
+
+- **Local/TF-IDF**：本地 TF-IDF 嵌入，无需 API，完全离线
+- **OpenAI**：使用 OpenAI 的嵌入模型
+- **Gemini**：使用 Google Gemini 的嵌入模型
+- **Custom**：自定义嵌入服务
+
+#### 配置参数
+
+- **Chunk Size**：文档分块大小（默认 1000 字符）
+- **Chunk Overlap**：分块重叠大小（默认 200 字符）
+- **Top K**：检索的相似块数量（默认 5）
+
+### MCP 配置
+
+1. 在设置中找到 `MCP Servers` 部分
+2. 添加 MCP 服务器：
+   - **Name**：服务器名称
+   - **SSE URL**：服务器事件流 URL
+   - **API Key**：（如需要）
+3. 连接后，可用工具将自动显示
+4. 在 Agent 模式下选择要使用的工具
+
+## 📖 使用指南
+
+### 基础对话
+
+#### 论文摘要
+```
+请总结这篇论文的主要内容
+```
+
+#### 论文解释
+```
+请解释这篇论文的方法部分
+```
+
+#### 选中文本解释
+1. 在 PDF 中选中文本
+2. 选择 `Explain Selected Text`
+3. AI 将基于上下文解释选中内容
+
+### Agent 模式功能
+
+#### 作者信息查询
+```
+请查找这篇论文第一作者的其他论文
+```
+
+#### 相关论文搜索
+```
+请帮我找一些与这篇论文相关的研究
+```
+
+#### 学术简历生成
+```
+请为这篇论文的第一作者生成学术简历
+```
+
+### 论文组分析
+
+1. 选择多篇论文（Ctrl/Cmd + 点击）
+2. 选择 `AI Assistant` → `Chat with Papers`
+3. 可以询问跨论文的问题：
+   ```
+   请比较这几篇论文的研究方法
+   ```
+
+### MCP 工具使用
+
+1. 在设置中配置并连接 MCP 服务器
+2. 在 Agent 模式下，工具会自动可用
+3. 询问需要使用工具的问题：
+   ```
+   请查询作者在 SciSciNet 上的研究轨迹
+   ```
+
+
+### 添加新功能
+
+1. **添加新的 AI 提供商**
+   - 在 `src/modules/chat.ts` 中的 `callLLMStream` 函数添加新的 provider 分支
+   - 在设置界面添加相应的配置项
+
+2. **添加新的工具**
+   - 通过 MCP 服务器添加工具（推荐）
+   - 或直接在代码中实现工具函数
+
+3. **自定义提示词**
+   - 提示词定义在 `src/modules/chat.ts` 中
+   - 可以修改 `systemPrompt` 变量来自定义行为
+
+## ❓ 常见问题
+
+### Q: 插件无法加载？
+
+A: 请检查：
+1. Zotero 版本是否 >= 6.0
+2. 插件文件是否完整
+3. 查看 Zotero 错误日志（`帮助` → `调试输出`）
+
+### Q: API 调用失败？
+
+A: 请确认：
+1. API Key 是否正确
+2. Base URL 是否正确（注意不要有多余的斜杠）
+3. 网络连接是否正常
+4. API 配额是否充足
+
+### Q: PDF 文本提取失败？
+
+A: 可能原因：
+1. PDF 文件已加密或受保护
+2. PDF 是扫描件（图片格式）
+3. PDF 文件损坏
+
+### Q: RAG 功能不工作？
+
+A: 检查：
+1. 嵌入提供商配置是否正确
+2. API Key 是否有效（如果使用 API 提供商）
+3. 文档是否足够长（RAG 仅在文档 > 15000 字符时启用）
+
+### Q: MCP 工具无法使用？
+
+A: 确认：
+1. MCP 服务器是否已连接
+2. 是否在 Agent 模式下
+3. 工具是否已选择启用
+4. 服务器 URL 和 API Key 是否正确
+
+
+
+## 📝 更新日志
+
+### v1.0.0
+
+- ✨ 初始版本发布
+- 🤖 支持多 LLM 提供商
+- 🔍 RAG 功能
+- 🔌 MCP 支持
+- 📚 DBLP 集成
+- 📄 PDF 处理
+
+
+
+## 🌟 Star History
+
+如果这个项目对你有帮助，请考虑给它一个 Star ⭐
+
+---
+
+**注意**：使用本插件需要配置相应的 AI API Key，可能产生费用。请根据你的使用情况合理配置和使用。
